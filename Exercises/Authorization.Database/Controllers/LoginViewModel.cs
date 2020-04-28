@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Authorization.Roles.Controllers
+namespace Authorization.Database.Controllers
 {
     public class LoginViewModel
     {

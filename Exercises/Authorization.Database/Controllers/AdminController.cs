@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Authorization.Roles.Controllers
+namespace Authorization.Database.Controllers
 {
     [Authorize]
     public class AdminController : Controller

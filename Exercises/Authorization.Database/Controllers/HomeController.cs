@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Authorization.Roles.Controllers
+namespace Authorization.Database.Controllers
 {
     public class HomeController: Controller
     {

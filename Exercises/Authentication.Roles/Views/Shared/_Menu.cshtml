@@ -1,0 +1,8 @@
+﻿<a asp-controller="Home" asp-action="Index">[Home]</a>
+<a asp-controller="Admin" asp-action="Index">[Secured Zone]</a>
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-controller="Admin" asp-action="Administrator">[Administrator]</a>
+    <a asp-controller="Admin" asp-action="Manager">[Manager]</a>
+    <a asp-controller="Admin" asp-action="LogOff">[Log Off]</a>
+}
