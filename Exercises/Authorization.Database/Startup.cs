@@ -1,6 +1,9 @@
 using System.Security.Claims;
+using Authorization.Database.Data;
+using Authorization.Database.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,12 +13,34 @@ namespace Authorization.Database
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication("Cookie")
-                .AddCookie("Cookie", config =>
+            services.AddDbContext<ApplicationDbContext>(config =>
                 {
-                    config.LoginPath = "/Admin/Login";
-                    config.AccessDeniedPath = "/Home/AccessDenied";
-                });
+                    config.UseInMemoryDatabase("MEMORY");
+                })
+                .AddIdentity<ApplicationUser, ApplicationRole>(config =>
+                {
+                    config.Password.RequireDigit = false;
+                    config.Password.RequireLowercase = false;
+                    config.Password.RequireNonAlphanumeric = false;
+                    config.Password.RequireUppercase = false;
+                    config.Password.RequiredLength = 6;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                ;
+
+            //services.AddAuthentication("Cookie")
+            //    .AddCookie("Cookie", config =>
+            //    {
+            //        config.LoginPath = "/Admin/Login";
+            //        config.AccessDeniedPath = "/Home/AccessDenied";
+            //    });
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/Admin/Login"; 
+                config.AccessDeniedPath = "/Home/AccessDenied";
+            });
+
 
             services.AddAuthorization(options =>
             {

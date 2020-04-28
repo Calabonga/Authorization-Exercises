@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using System.Threading.Tasks;
+using Authorization.Database.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authorization.Database.Controllers
@@ -10,6 +9,17 @@ namespace Authorization.Database.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AdminController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -42,21 +52,40 @@ namespace Authorization.Database.Controllers
                 return View(model);
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name,model.UserName),
-                new Claim(ClaimTypes.Role,"Administrator")
-            };
-            var claimIdentity = new ClaimsIdentity(claims, "Cookie");
-            var claimPrincipal = new ClaimsPrincipal(claimIdentity);
-            await HttpContext.SignInAsync("Cookie", claimPrincipal);
+            // var user = await _context.Users
+            // .SingleOrDefaultAsync(x => x.UserName == model.UserName && x.Password == model.Password);
 
-            return Redirect(model.ReturnUrl);
+            var user = await _userManager.FindByNameAsync(model.UserName);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found");
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return Redirect(model.ReturnUrl);
+            }
+
+            return View(model);
+
+            //var claims = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.Name,model.UserName),
+            //    new Claim(ClaimTypes.Role,"Administrator")
+            //};
+            //var claimIdentity = new ClaimsIdentity(claims, "Cookie");
+            //var claimPrincipal = new ClaimsPrincipal(claimIdentity);
+            //await HttpContext.SignInAsync("Cookie", claimPrincipal);
+
         }
 
-        public IActionResult LogOff()
+        public async Task<IActionResult> LogOff()
         {
-            HttpContext.SignOutAsync("Cookie");
+            await _signInManager.SignOutAsync();
             return Redirect("/Home/Index");
         }
     }
