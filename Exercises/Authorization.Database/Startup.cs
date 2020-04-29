@@ -25,23 +25,14 @@ namespace Authorization.Database
                     config.Password.RequireUppercase = false;
                     config.Password.RequiredLength = 6;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                ;
-
-            //services.AddAuthentication("Cookie")
-            //    .AddCookie("Cookie", config =>
-            //    {
-            //        config.LoginPath = "/Admin/Login";
-            //        config.AccessDeniedPath = "/Home/AccessDenied";
-            //    });
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.ConfigureApplicationCookie(config =>
             {
-                config.LoginPath = "/Admin/Login"; 
+                config.LoginPath = "/Admin/Login";
                 config.AccessDeniedPath = "/Home/AccessDenied";
             });
-
-
+            
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Administrator", builder =>
