@@ -52,9 +52,6 @@ namespace Authorization.Database.Controllers
                 return View(model);
             }
 
-            // var user = await _context.Users
-            // .SingleOrDefaultAsync(x => x.UserName == model.UserName && x.Password == model.Password);
-
             var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user == null)
@@ -71,16 +68,6 @@ namespace Authorization.Database.Controllers
             }
 
             return View(model);
-
-            //var claims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name,model.UserName),
-            //    new Claim(ClaimTypes.Role,"Administrator")
-            //};
-            //var claimIdentity = new ClaimsIdentity(claims, "Cookie");
-            //var claimPrincipal = new ClaimsPrincipal(claimIdentity);
-            //await HttpContext.SignInAsync("Cookie", claimPrincipal);
-
         }
 
         public async Task<IActionResult> LogOff()

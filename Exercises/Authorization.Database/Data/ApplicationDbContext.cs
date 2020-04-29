@@ -15,6 +15,5 @@ namespace Authorization.Database.Data
         {
 
         }
-
     }
 }
