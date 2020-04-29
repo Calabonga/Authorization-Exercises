@@ -1,0 +1,41 @@
+﻿@model Authorization.FacebookDemo.Controllers.LoginViewModel
+<h1>Login</h1>
+
+<p>
+    <a asp-controller="Home" asp-action="Index">[Home]</a>
+</p>
+
+
+<h3>
+    Login with external provider
+</h3>
+<form asp-controller="Admin" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+    @foreach (var provider  in Model.ExternalProviders)
+    {
+        <button
+            type="submit"
+            name="provider"
+            value="@provider.Name">@provider.DisplayName</button>
+    }
+</form>
+
+
+<form asp-controller="Admin" asp-action="Login" method="post">
+    <div asp-validation-summary="All"></div>
+
+    <input hidden asp-for="ReturnUrl"/>
+    <div>
+        <label>UserName</label>
+        <input asp-for="UserName"/>
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div>
+        <label>Password</label>
+        <input asp-for="Password"/>
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <p>
+        <button type="submit">Log in</button>
+    </p>
+</form>
