@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Database", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.FacebookDemo", "Authorization.FacebookDemo\Authorization.FacebookDemo.csproj", "{9EBA4DD7-1BF6-4D56-A5F3-70B14E8C61FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.JwtBearer", "Authorization.JwtBearer\Authorization.JwtBearer.csproj", "{4C3F7744-4D59-4C06-88C4-0F1642D3A830}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.JwtBearer", "Authorization.JwtBearer\Authorization.JwtBearer.csproj", "{4C3F7744-4D59-4C06-88C4-0F1642D3A830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.VKontakte", "Authorization.VKontakte\Authorization.VKontakte.csproj", "{0443870F-1D24-4596-977F-85A261BCD70C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{4C3F7744-4D59-4C06-88C4-0F1642D3A830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C3F7744-4D59-4C06-88C4-0F1642D3A830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C3F7744-4D59-4C06-88C4-0F1642D3A830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0443870F-1D24-4596-977F-85A261BCD70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0443870F-1D24-4596-977F-85A261BCD70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0443870F-1D24-4596-977F-85A261BCD70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0443870F-1D24-4596-977F-85A261BCD70C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
