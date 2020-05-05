@@ -123,6 +123,7 @@ namespace Authorization.FacebookDemo.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.ExternalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();
                 return View(model);
             }
 
@@ -130,6 +131,7 @@ namespace Authorization.FacebookDemo.Controllers
 
             if (user == null)
             {
+                model.ExternalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();
                 ModelState.AddModelError("", "User not found");
                 return View(model);
             }
@@ -140,7 +142,7 @@ namespace Authorization.FacebookDemo.Controllers
             {
                 return Redirect(model.ReturnUrl);
             }
-
+            model.ExternalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();
             return View(model);
         }
 
