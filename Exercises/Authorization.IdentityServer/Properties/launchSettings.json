@@ -1,0 +1,13 @@
+﻿{
+ "profiles": {
+   "Authorization.IdentityServer": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "site/index",
+      "applicationUrl": "https://localhost:10001;http://localhost:10000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

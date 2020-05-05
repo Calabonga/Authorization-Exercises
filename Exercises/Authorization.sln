@@ -13,7 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.FacebookDemo"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.JwtBearer", "Authorization.JwtBearer\Authorization.JwtBearer.csproj", "{4C3F7744-4D59-4C06-88C4-0F1642D3A830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.VKontakte", "Authorization.VKontakte\Authorization.VKontakte.csproj", "{0443870F-1D24-4596-977F-85A261BCD70C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.VKontakte", "Authorization.VKontakte\Authorization.VKontakte.csproj", "{0443870F-1D24-4596-977F-85A261BCD70C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basics", "Basics", "{DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Orders.Api", "Authorization.Orders.Api\Authorization.Orders.Api.csproj", "{BA9E6C1C-D777-430B-89C3-53AF46A413E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Users.Api", "Authorization.Users.Api\Authorization.Users.Api.csproj", "{1D142D58-6C8F-41B1-8E13-D7264335E05A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.IdentityServer", "Authorization.IdentityServer\Authorization.IdentityServer.csproj", "{1CE934FB-7ABF-4C6E-94E4-50D34DC3B7CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +53,29 @@ Global
 		{0443870F-1D24-4596-977F-85A261BCD70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0443870F-1D24-4596-977F-85A261BCD70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0443870F-1D24-4596-977F-85A261BCD70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA9E6C1C-D777-430B-89C3-53AF46A413E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA9E6C1C-D777-430B-89C3-53AF46A413E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA9E6C1C-D777-430B-89C3-53AF46A413E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA9E6C1C-D777-430B-89C3-53AF46A413E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D142D58-6C8F-41B1-8E13-D7264335E05A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D142D58-6C8F-41B1-8E13-D7264335E05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D142D58-6C8F-41B1-8E13-D7264335E05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D142D58-6C8F-41B1-8E13-D7264335E05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE934FB-7ABF-4C6E-94E4-50D34DC3B7CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE934FB-7ABF-4C6E-94E4-50D34DC3B7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE934FB-7ABF-4C6E-94E4-50D34DC3B7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE934FB-7ABF-4C6E-94E4-50D34DC3B7CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED3FC6A3-93CD-45F8-99F1-8004B5FA9EA3} = {DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}
+		{0643CCE0-2C41-45E0-9BCB-40420DC3E99E} = {DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}
+		{51E5906B-EC8F-4AF5-AEC3-6BFDF1BD3650} = {DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}
+		{9EBA4DD7-1BF6-4D56-A5F3-70B14E8C61FF} = {DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}
+		{4C3F7744-4D59-4C06-88C4-0F1642D3A830} = {DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}
+		{0443870F-1D24-4596-977F-85A261BCD70C} = {DECF6B1E-0579-44DE-BAB0-5A4A0E0E879F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F99A385-9375-4163-9B32-0CDC347B568B}

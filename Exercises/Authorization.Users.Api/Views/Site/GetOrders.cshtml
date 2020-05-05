@@ -1,0 +1,10 @@
+﻿<h1>Index</h1>
+
+<partial name="_Menu"/>
+
+@if (!string.IsNullOrEmpty(ViewData["Message"].ToString()))
+{
+    <p>
+        @ViewData["Message"]
+    </p>
+}
