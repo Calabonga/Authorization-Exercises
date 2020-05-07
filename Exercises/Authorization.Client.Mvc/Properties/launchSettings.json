@@ -1,10 +1,10 @@
 ﻿{
  "profiles": {
-   "Authorization.Users.Api": {
+   "Authorization.Client.Mvc": {
       "commandName": "Project",
-      "launchBrowser": false,
+      "launchBrowser": true,
       "launchUrl": "site/index",
-      "applicationUrl": "https://localhost:9001;http://localhost:9000",
+      "applicationUrl": "https://localhost:2001;http://localhost:2000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
