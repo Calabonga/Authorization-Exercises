@@ -36,7 +36,9 @@ namespace Authorization.IdentityServer
                     IdentityServerConstants.StandardScopes.Profile
                 },
 
-                RedirectUris = {"https://localhost:2001/signin-oidc"}
+                RedirectUris = {"https://localhost:2001/signin-oidc"},
+
+                RequireConsent = false
             }
         };
 
