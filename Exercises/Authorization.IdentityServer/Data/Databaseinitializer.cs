@@ -1,5 +1,6 @@
 using System;
 using System.Security.Claims;
+using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,7 @@ namespace Authorization.IdentityServer.Data
             if (result.Succeeded)
             {
                 userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Administrator")).GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Scope, "OrdersAPI")).GetAwaiter().GetResult();
             }
         }
     }

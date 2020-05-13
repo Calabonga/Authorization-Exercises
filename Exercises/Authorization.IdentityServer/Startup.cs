@@ -1,4 +1,5 @@
 using Authorization.IdentityServer.Data;
+using Authorization.IdentityServer.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,11 @@ namespace Authorization.IdentityServer
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "IdentityServer.Cookies";
+            });
+
             services.AddIdentityServer(options =>
                 {
                     options.UserInteraction.LoginUrl = "/Auth/Login";
@@ -34,9 +40,11 @@ namespace Authorization.IdentityServer
                 .AddInMemoryClients(Configuration.GetClients())
                 .AddInMemoryApiResources(Configuration.GetApiResources())
                 .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
+                .AddProfileService<ProfileService>()
                 .AddDeveloperSigningCredential();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
