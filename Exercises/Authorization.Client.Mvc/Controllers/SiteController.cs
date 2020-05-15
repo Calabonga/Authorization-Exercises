@@ -41,67 +41,60 @@ namespace Authorization.Client.Mvc.Controllers
 
             try
             {
-                var client = _httpClientFactory.CreateClient();
-                client.SetBearerToken(model.AccessToken);
-
-                try
-                {
-                    var stringAsync = await client.GetAsync("https://localhost:5001/site/secret");
-
-                    if (stringAsync.StatusCode == HttpStatusCode.Unauthorized)
-                    {
-                        await RefreshToken(model.RefreshToken);
-                        var stringRepeatAsync = await client.GetStringAsync("https://localhost:5001/site/secret");
-                        var contentSecret = stringRepeatAsync;
-                        ViewBag.Message = contentSecret;
-                        return View(model);
-                    }
-                    ViewBag.Message = await stringAsync.Content.ReadAsStringAsync();
-                }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
-
-
-
+                ViewBag.Message = await GetSecretAsync(model);
+                return View(model);
             }
             catch (Exception exception)
             {
-
-                ViewBag.Message = exception.Message;
+                await RefreshToken(model.RefreshToken);
+                var model2 = new ClaimManager(HttpContext, User);
+                ViewBag.Message = await GetSecretAsync(model2);
             }
             return View(model);
+        }
+
+        private async Task<string> GetSecretAsync(ClaimManager model)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.SetBearerToken(model.AccessToken);
+            return await client.GetStringAsync("https://localhost:5001/site/secret");
         }
 
         private async Task RefreshToken(string refreshToken)
         {
             var refreshClient = _httpClientFactory.CreateClient();
-
-            var parameters = new Dictionary<string, string>
+            var resultRefreshTokenAsync = await refreshClient.RequestRefreshTokenAsync(new RefreshTokenRequest
             {
-                ["refresh_token"] = refreshToken,
-                ["grant_type"] = "refresh_token",
-                ["client_id"] = "client_id_mvc",
-                ["client_secret"] = "client_secret_mvc"
-            };
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:10001/connect/token")
-            {
-                Content = new FormUrlEncodedContent(parameters)
-            };
-            var basics = "client_id_mvc:client_secret_mvc";
-            var encodedData = Encoding.UTF8.GetBytes(basics);
-            var encodeData4Base = Convert.ToBase64String(encodedData);
-            request.Headers.Add("Authorization", $"Bearer {encodeData4Base}");
-            var response = await refreshClient.SendAsync(request);
+                Address = "https://localhost:10001/connect/token",
+                ClientId = "client_id_mvc",
+                ClientSecret = "client_secret_mvc",
+                RefreshToken = refreshToken,
+                Scope = "openid ordersAPI offline_access"
+            });
 
-            var tokenData = await response.Content.ReadAsStringAsync();
-            var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(tokenData);
-            var accessTokenNew = tokenResponse.GetValueOrDefault("access_token");
-            var refreshTokenNew = tokenResponse.GetValueOrDefault("refresh_token");
+            //var parameters = new Dictionary<string, string>
+            //{
+            //    ["refresh_token"] = refreshToken,
+            //    ["grant_type"] = "refresh_token",
+            //    ["client_id"] = "client_id_mvc",
+            //    ["client_secret"] = "client_secret_mvc"
+            //};
+            //var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:10001/connect/token")
+            //{
+            //    Content = new FormUrlEncodedContent(parameters)
+            //};
+            //var basics = "client_id_mvc:client_secret_mvc";
+            //var encodedData = Encoding.UTF8.GetBytes(basics);
+            //var encodeData4Base = Convert.ToBase64String(encodedData);
+            //request.Headers.Add("Authorization", $"Bearer {encodeData4Base}");
+            //var response = await refreshClient.SendAsync(request);
 
-            await UpdateAuthContextAsync(accessTokenNew, refreshTokenNew);
+            //var tokenData = await response.Content.ReadAsStringAsync();
+            //var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(tokenData);
+            //var accessTokenNew = tokenResponse.GetValueOrDefault("access_token");
+            //var refreshTokenNew = tokenResponse.GetValueOrDefault("refresh_token");
+
+            await UpdateAuthContextAsync(resultRefreshTokenAsync.AccessToken, resultRefreshTokenAsync.RefreshToken);
         }
 
         private async Task UpdateAuthContextAsync(string accessTokenNew, string refreshTokenNew)
