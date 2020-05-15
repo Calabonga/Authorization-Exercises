@@ -17,10 +17,12 @@ namespace Authorization.Client.Mvc.ViewModels
             if (context == null) throw new ArgumentNullException(nameof(context));
             Items = new List<ClaimViewer>();
             var claims = user.Claims.ToList();
-            
-            var idTokenJson = context.GetTokenAsync("id_token").GetAwaiter().GetResult();
-            var accessTokenJson =  context.GetTokenAsync("access_token").GetAwaiter().GetResult();
 
+            var idTokenJson = context.GetTokenAsync("id_token").GetAwaiter().GetResult();
+            var accessTokenJson = context.GetTokenAsync("access_token").GetAwaiter().GetResult();
+            var refreshTokenJson = context.GetTokenAsync("refresh_token").GetAwaiter().GetResult();
+
+            AddTokenInfo("Refresh Token", refreshTokenJson, true);
             AddTokenInfo("Identity Token", idTokenJson);
             AddTokenInfo("Access Token", accessTokenJson);
             AddTokenInfo("User Claims", claims);
@@ -32,7 +34,7 @@ namespace Authorization.Client.Mvc.ViewModels
         {
             get
             {
-                if (Items ==null || Items.Count==0)
+                if (Items == null || Items.Count == 0)
                 {
                     throw new InvalidOperationException("Not tokens found");
                 }
@@ -46,9 +48,27 @@ namespace Authorization.Client.Mvc.ViewModels
             }
         }
 
-        private void AddTokenInfo(string nameToken, string idTokenJson)
+        public string RefreshToken
         {
-            Items.Add(new ClaimViewer(nameToken, idTokenJson));
+            get
+            {
+                if (Items == null || Items.Count == 0)
+                {
+                    throw new InvalidOperationException("Not tokens found");
+                }
+                var token = Items.SingleOrDefault(x => x.Name == "Refresh Token");
+                if (token == null)
+                {
+                    throw new InvalidOperationException("Not tokens found");
+                }
+
+                return token.Token;
+            }
+        }
+
+        private void AddTokenInfo(string nameToken, string idTokenJson, bool skipParsing = false)
+        {
+            Items.Add(new ClaimViewer(nameToken, idTokenJson, skipParsing));
         }
 
         private void AddTokenInfo(string nameToken, IEnumerable<Claim> claims)

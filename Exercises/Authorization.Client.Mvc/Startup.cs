@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Authorization.Client.Mvc
 {
@@ -33,6 +34,7 @@ namespace Authorization.Client.Mvc
                     config.ResponseType = "code";
 
                     config.Scope.Add("OrdersAPI");
+                    config.Scope.Add("offline_access");
 
                     config.GetClaimsFromUserInfoEndpoint = true;
 

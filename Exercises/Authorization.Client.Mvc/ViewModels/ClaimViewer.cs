@@ -19,11 +19,13 @@ namespace Authorization.Client.Mvc.ViewModels
             Token = "N/A";
         }
 
-        public ClaimViewer(string name, string tokenJson)
+        public ClaimViewer(string name, string tokenJson, bool skipParsing = false)
         {
-            if (tokenJson == null) throw new ArgumentNullException(nameof(tokenJson));
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Claims = ((JwtSecurityToken)new JwtSecurityTokenHandler().ReadToken(tokenJson)).Claims?.ToList();
+            if (!skipParsing)
+            {
+                Claims = ((JwtSecurityToken)new JwtSecurityTokenHandler().ReadToken(tokenJson)).Claims?.ToList();
+            }
             Token = tokenJson;
         }
 
