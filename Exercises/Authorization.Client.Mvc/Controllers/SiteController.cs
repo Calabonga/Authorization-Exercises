@@ -72,28 +72,6 @@ namespace Authorization.Client.Mvc.Controllers
                 Scope = "openid ordersAPI offline_access"
             });
 
-            //var parameters = new Dictionary<string, string>
-            //{
-            //    ["refresh_token"] = refreshToken,
-            //    ["grant_type"] = "refresh_token",
-            //    ["client_id"] = "client_id_mvc",
-            //    ["client_secret"] = "client_secret_mvc"
-            //};
-            //var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:10001/connect/token")
-            //{
-            //    Content = new FormUrlEncodedContent(parameters)
-            //};
-            //var basics = "client_id_mvc:client_secret_mvc";
-            //var encodedData = Encoding.UTF8.GetBytes(basics);
-            //var encodeData4Base = Convert.ToBase64String(encodedData);
-            //request.Headers.Add("Authorization", $"Bearer {encodeData4Base}");
-            //var response = await refreshClient.SendAsync(request);
-
-            //var tokenData = await response.Content.ReadAsStringAsync();
-            //var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(tokenData);
-            //var accessTokenNew = tokenResponse.GetValueOrDefault("access_token");
-            //var refreshTokenNew = tokenResponse.GetValueOrDefault("refresh_token");
-
             await UpdateAuthContextAsync(resultRefreshTokenAsync.AccessToken, resultRefreshTokenAsync.RefreshToken);
         }
 
