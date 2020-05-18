@@ -22,7 +22,12 @@ namespace Authorization.IdentityServer.Controllers
         [Route("[action]")]
         public IActionResult Login(string returnUrl)
         {
-            return View();
+            return View(new LoginViewModel
+            {
+                Password = "123qwe", 
+                ReturnUrl = returnUrl,
+                UserName = "User"
+            });
         }
 
         [HttpPost]
