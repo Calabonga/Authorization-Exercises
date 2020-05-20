@@ -3,7 +3,6 @@
    "Authorization.Client.Mvc": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "site/index",
       "applicationUrl": "https://localhost:2001;http://localhost:2000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

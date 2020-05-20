@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Authorization.Client.Mvc.ViewModels;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Authorization.Client.Mvc.Controllers
 {
-    [Route("[controller]")]
     public class SiteController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -26,15 +20,30 @@ namespace Authorization.Client.Mvc.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        public IActionResult GoodBye()
+        {
+            return View();
+        }
 
-        [Route("[action]")]
+
+        public IActionResult Logout()
+        {
+            var parameters = new AuthenticationProperties
+            {
+                RedirectUri = "/Site/GoodBye"
+            };
+            return SignOut(
+                parameters,
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                OpenIdConnectDefaults.AuthenticationScheme);
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
         [Authorize]
-        [Route("[action]")]
         public async Task<IActionResult> Secret()
         {
             var model = new ClaimManager(HttpContext, User);
@@ -86,7 +95,6 @@ namespace Authorization.Client.Mvc.Controllers
         }
 
         [Authorize(Policy = "HasDateOfBirth")]
-        [Route("[action]")]
         public IActionResult Secret1()
         {
             var model = new ClaimManager(HttpContext, User);
@@ -95,7 +103,6 @@ namespace Authorization.Client.Mvc.Controllers
         }
 
         [Authorize(Policy = "OlderThan")]
-        [Route("[action]")]
         public IActionResult Secret2()
         {
             var model = new ClaimManager(HttpContext, User);

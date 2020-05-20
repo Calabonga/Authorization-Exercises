@@ -2,3 +2,9 @@
 [<a asp-controller="Site" asp-action="Secret">Secret</a>]
 [<a asp-controller="Site" asp-action="Secret1">Secret1</a>]
 [<a asp-controller="Site" asp-action="Secret2">Secret2</a>]
+@if (User.Identity.IsAuthenticated)
+{
+    <text>
+        [<a asp-controller="Site" asp-action="Logout">Log out</a>]
+    </text>
+}

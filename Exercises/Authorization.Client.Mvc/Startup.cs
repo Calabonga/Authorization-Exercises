@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Authorization.Client.Mvc.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,10 +19,10 @@ namespace Authorization.Client.Mvc
             services.AddAuthentication(config =>
                 {
                     config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    config.DefaultChallengeScheme = "oidc";
+                    config.DefaultChallengeScheme= OpenIdConnectDefaults.AuthenticationScheme;
                 })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddOpenIdConnect("oidc", config =>
+                .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, config =>
                 {
                     config.Authority = "https://localhost:10001";
                     config.ClientId = "client_id_mvc";
@@ -69,7 +70,9 @@ namespace Authorization.Client.Mvc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute(
+                    name:"Default",
+                    pattern: "{controller=Site}/{action=Index}/{id?}");
             });
         }
     }
