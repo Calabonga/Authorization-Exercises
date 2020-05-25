@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Calabonga.DemoClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authorization.Swagger.Controllers
@@ -10,13 +11,14 @@ namespace Authorization.Swagger.Controllers
     {
         private readonly List<Person> _people = People.GetPeople();
 
-        [Route("[action]")]
+        [HttpGet("[action]")]
+        [Authorize]
         public IActionResult GetAll()
         {
             return Ok(_people);
         }
 
-        [Route("[action]/{id:int}")]
+        [HttpGet("[action]/{id:int}")]
         public IActionResult GetById(int id)
         {
             var item = _people.FirstOrDefault(x => x.Id == id);

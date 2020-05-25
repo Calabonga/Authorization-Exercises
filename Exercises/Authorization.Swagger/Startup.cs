@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,9 +21,57 @@ namespace Authorization.Swagger
                     Description = "Demo Swagger API v1",
                     Title = "Swagger with IdentityServer4",
                     Version = "1.0.0"
+                });
 
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Password = new OpenApiOAuthFlow
+                        {
+                            TokenUrl = new Uri("https://localhost:10001/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                 //{"SwaggerAPI", "Swagger API DEMO"}
+                            }
+                        }
+                    }
+                });
+
+                options.AddSecurityRequirement( new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "oauth2"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
                 });
             });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.ApiName = "SwaggerAPI";
+                    options.Authority = "https://localhost:10001";
+                    options.RequireHttpsMetadata = false;
+                });
+
+            services.AddAuthorization();
 
             services.AddControllers();
         }
@@ -39,10 +90,16 @@ namespace Authorization.Swagger
                 options.DocumentTitle = "Title";
                 options.RoutePrefix = "docs";
                 options.DocExpansion(DocExpansion.List);
-
+                options.OAuthClientId("client_id_swagger");
+                options.OAuthScopeSeparator(" ");
+                options.OAuthClientSecret("client_secret_swagger");
             });
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

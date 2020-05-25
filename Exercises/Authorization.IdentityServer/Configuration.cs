@@ -12,6 +12,19 @@ namespace Authorization.IdentityServer
         {
             new Client
             {
+                ClientId = "client_id_swagger",
+                ClientSecrets = { new Secret("client_secret_swagger".ToSha256()) },
+                AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
+                AllowedCorsOrigins = { "https://localhost:7001" },
+                AllowedScopes =
+                {
+                    "SwaggerAPI",
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
+                }
+            },
+            new Client
+            {
                 ClientId = "client_id",
                 ClientSecrets = { new Secret("client_secret".ToSha256()) },
 
@@ -51,6 +64,7 @@ namespace Authorization.IdentityServer
 
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource> {
+                new ApiResource("SwaggerAPI"),
                 new ApiResource("OrdersAPI")
             };
 
