@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Users.Api", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.IdentityServer", "Authorization.IdentityServer\Authorization.IdentityServer.csproj", "{1CE934FB-7ABF-4C6E-94E4-50D34DC3B7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.Client.Mvc", "Authorization.Client.Mvc\Authorization.Client.Mvc.csproj", "{7DF79EAE-67A6-4199-BA7D-A52776429E96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Client.Mvc", "Authorization.Client.Mvc\Authorization.Client.Mvc.csproj", "{7DF79EAE-67A6-4199-BA7D-A52776429E96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.Swagger", "Authorization.Swagger\Authorization.Swagger.csproj", "{3279625A-E997-4D6E-9680-D931EA5AAEE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{7DF79EAE-67A6-4199-BA7D-A52776429E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF79EAE-67A6-4199-BA7D-A52776429E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DF79EAE-67A6-4199-BA7D-A52776429E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3279625A-E997-4D6E-9680-D931EA5AAEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3279625A-E997-4D6E-9680-D931EA5AAEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3279625A-E997-4D6E-9680-D931EA5AAEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3279625A-E997-4D6E-9680-D931EA5AAEE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
