@@ -12,6 +12,21 @@ namespace Authorization.IdentityServer
         {
             new Client
             {
+                ClientId = "client_id_js",
+                RequireClientSecret = false,
+                RequireConsent = false,
+                RequirePkce = true,
+                AllowedGrantTypes =  GrantTypes.Code,
+                AllowedCorsOrigins = { "https://localhost:9001" },
+                AllowedScopes =
+                {
+                    "SwaggerAPI",
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
+                }
+            },
+            new Client
+            {
                 ClientId = "client_id_swagger",
                 ClientSecrets = { new Secret("client_secret_swagger".ToSha256()) },
                 AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
