@@ -18,9 +18,10 @@ namespace Authorization.IdentityServer
                 RequirePkce = true,
                 AllowedGrantTypes =  GrantTypes.Code,
                 AllowedCorsOrigins = { "https://localhost:9001" },
+                RedirectUris = { "https://localhost:9001/callback.html" },
                 AllowedScopes =
                 {
-                    "SwaggerAPI",
+                    "OrdersAPI",
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile
                 }
