@@ -18,7 +18,8 @@ namespace Authorization.IdentityServer
                 RequirePkce = true,
                 AllowedGrantTypes =  GrantTypes.Code,
                 AllowedCorsOrigins = { "https://localhost:9001" },
-                RedirectUris = { "https://localhost:9001/callback.html" },
+                RedirectUris = { "https://localhost:9001/callback.html", "https://localhost:9001/refresh.html" },
+                PostLogoutRedirectUris = { "https://localhost:9001/index.html" },
                 AllowedScopes =
                 {
                     "OrdersAPI",
