@@ -38,8 +38,8 @@ namespace Authorization.IdentityServer
 
             services.ConfigureApplicationCookie(config =>
             {
-                config.LoginPath = "/Auth/Login";
-                config.LogoutPath = "/Auth/Logout";
+                //config.LoginPath = "/Auth/Login";
+                //config.LogoutPath = "/Auth/Logout";
                 config.Cookie.Name = "IdentityServer.Cookies";
             });
 
@@ -75,7 +75,8 @@ namespace Authorization.IdentityServer
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
