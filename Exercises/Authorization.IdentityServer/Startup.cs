@@ -1,4 +1,6 @@
+using System.IO;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using Authorization.IdentityServer.Data;
 using Authorization.IdentityServer.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -8,15 +10,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Authorization.IdentityServer
 {
     public class Startup
     {
+        private readonly IHostEnvironment _environment;
+
         private IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
+            _environment = environment;
             Configuration = configuration;
         }
 
@@ -45,22 +51,28 @@ namespace Authorization.IdentityServer
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
+            // var filePath = Path.Combine(_environment.ContentRootPath, "IdentityServer4_certificate.pfx");
+            // var certificate = new X509Certificate2(filePath, "P@55w0rd");
+
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
                 {
-                    options.ConfigureDbContext = b => b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
-                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                    options.ConfigureDbContext = b =>
+                        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
+                            sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 .AddOperationalStore(options =>
                 {
-                    options.ConfigureDbContext = b => b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
-                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                    options.ConfigureDbContext = b =>
+                        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
+                            sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 // .AddInMemoryClients(IdentityServerConfiguration.GetClients())
                 // .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResources())
                 // .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
                 .AddProfileService<ProfileService>()
+                // .AddSigningCredential(certificate);
                 .AddDeveloperSigningCredential();
 
             services.AddControllersWithViews()
