@@ -56,21 +56,21 @@ namespace Authorization.IdentityServer
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
-                .AddConfigurationStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
-                            sql => sql.MigrationsAssembly(migrationsAssembly));
-                })
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
-                            sql => sql.MigrationsAssembly(migrationsAssembly));
-                })
-                // .AddInMemoryClients(IdentityServerConfiguration.GetClients())
-                // .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResources())
-                // .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
+                //.AddConfigurationStore(options =>
+                //{
+                //    options.ConfigureDbContext = b =>
+                //        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
+                //            sql => sql.MigrationsAssembly(migrationsAssembly));
+                //})
+                //.AddOperationalStore(options =>
+                //{
+                //    options.ConfigureDbContext = b =>
+                //        b.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)),
+                //            sql => sql.MigrationsAssembly(migrationsAssembly));
+                //})
+                .AddInMemoryClients(IdentityServerConfiguration.GetClients())
+                .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResources())
+                .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
                 .AddProfileService<ProfileService>()
                 // .AddSigningCredential(certificate);
                 .AddDeveloperSigningCredential();

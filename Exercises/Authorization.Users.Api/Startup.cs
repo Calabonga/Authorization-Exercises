@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Authorization.Users.Api1
+namespace Authorization.Users.Api
 {
     public class Startup
     {
