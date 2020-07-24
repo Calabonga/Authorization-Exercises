@@ -44,12 +44,13 @@ namespace Authorization.IdentityServer
             {
                 ClientId = "client_id",
                 ClientSecrets = { new Secret("client_secret".ToSha256()) },
-
+                
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
-
                 AllowedScopes =
                 {
-                    "OrdersAPI"
+                    "OrdersAPI",
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
                 }
             },
             new Client
@@ -79,16 +80,27 @@ namespace Authorization.IdentityServer
             }
         };
 
-        public static IEnumerable<ApiResource> GetApiResources() =>
-            new List<ApiResource> {
-                new ApiResource("SwaggerAPI"),
-                new ApiResource("OrdersAPI")
-            };
+      
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            yield return new ApiResource("SwaggerAPI");
+            yield return new ApiResource("OrdersAPI");
+        }
 
-        public static IEnumerable<IdentityResource> GetIdentityResources() =>
-            new List<IdentityResource> {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
-            };
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            yield return new IdentityResources.OpenId();
+            yield return new IdentityResources.Profile();
+        }
+
+        /// <summary>
+        /// IdentityServer4 version 4.x.x changes
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<ApiScope> GetApiScopes()
+        {
+            yield return new ApiScope("SwaggerAPI", "Swagger API");
+            yield return new ApiScope("OrdersAPI", "Orders API");
+        }
     }
 }

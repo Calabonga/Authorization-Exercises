@@ -68,6 +68,10 @@ namespace Authorization.Client.Mvc.ViewModels
 
         private void AddTokenInfo(string nameToken, string idTokenJson, bool skipParsing = false)
         {
+            if (string.IsNullOrWhiteSpace(idTokenJson))
+            {
+                return;
+            }
             Items.Add(new ClaimViewer(nameToken, idTokenJson, skipParsing));
         }
 

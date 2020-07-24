@@ -71,6 +71,7 @@ namespace Authorization.IdentityServer
                 .AddInMemoryClients(IdentityServerConfiguration.GetClients())
                 .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResources())
                 .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
+                .AddInMemoryApiScopes(IdentityServerConfiguration.GetApiScopes()) // IdentityServer4 version 4.x.x changes
                 .AddProfileService<ProfileService>()
                 // .AddSigningCredential(certificate);
                 .AddDeveloperSigningCredential();

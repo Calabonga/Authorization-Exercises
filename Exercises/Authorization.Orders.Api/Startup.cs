@@ -10,6 +10,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Authorization.Orders.Api
 {
+    public static class Constants
+    {
+        public const string Issuer = "https://localhost:5001";
+        public const string Audience = Issuer;
+        public const string SecretKey = "this_is_secret_key_for_jwt_token_generation";
+    }
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -25,10 +32,12 @@ namespace Authorization.Orders.Api
                 {
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ClockSkew = TimeSpan.FromSeconds(5)
+                        ClockSkew = TimeSpan.FromSeconds(5),
+                        ValidateAudience = false
                     };
+                    
                     config.Authority = "https://localhost:10001";
-                    config.Audience = "OrdersAPI";
+                    config.Audience = "https://localhost:10001";
                 });
 
             services.AddControllersWithViews();

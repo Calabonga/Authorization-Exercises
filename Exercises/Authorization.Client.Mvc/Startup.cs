@@ -28,7 +28,11 @@ namespace Authorization.Client.Mvc
                     config.ClientId = "client_id_mvc";
                     config.ClientSecret = "client_secret_mvc";
                     config.SaveTokens = true;
-
+                    config.TokenValidationParameters= new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                    
                     config.ResponseType = "code";
 
                     config.Scope.Add("OrdersAPI");

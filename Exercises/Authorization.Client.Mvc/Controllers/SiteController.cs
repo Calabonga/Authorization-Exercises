@@ -78,7 +78,7 @@ namespace Authorization.Client.Mvc.Controllers
                 ClientId = "client_id_mvc",
                 ClientSecret = "client_secret_mvc",
                 RefreshToken = refreshToken,
-                Scope = "openid ordersAPI offline_access"
+                Scope = "openid OrdersAPI offline_access"
             });
 
             await UpdateAuthContextAsync(resultRefreshTokenAsync.AccessToken, resultRefreshTokenAsync.RefreshToken);

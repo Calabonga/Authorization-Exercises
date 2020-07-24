@@ -31,10 +31,8 @@ namespace Authorization.Users.Api.Controllers
                 new ClientCredentialsTokenRequest
                 {
                     Address = discoveryDocument.TokenEndpoint,
-
                     ClientId = "client_id",
                     ClientSecret = "client_secret",
-
                     Scope = "OrdersAPI"
                 });
 

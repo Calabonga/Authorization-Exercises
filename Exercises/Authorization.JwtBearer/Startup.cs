@@ -35,6 +35,7 @@ namespace Authorization.JwtBearer
 
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
+                        ValidateAudience = false,
                         ValidIssuer = Constants.Issuer,
                         ValidAudience = Constants.Audience,
                         IssuerSigningKey = key
