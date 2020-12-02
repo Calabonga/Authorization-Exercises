@@ -2,6 +2,8 @@
 Exercises with authentication and authorization on ASP.NET Core 3.1
 
 # Release & Versions
+Внимание! Все проекты переведены на .NET 5.0. Старые версии на базе ASP.NET Core 3.1 доступны в [asp.net-core3.1](https://github.com/Calabonga/Authorization-Exercises/tree/asp.net-core3.1). 
+
 В видео материалах, которые описаны ниже, использовался `IdentityServer4` (nuget-пакеты: IdentityServer4, IdentityServer4.AspNetIdentity, IdentityServer4.EntityFramework) версии 3.1.3. В репозитории создан tag с с названием `IdentityServer4_v.3.1.3` ([3.1.3](https://github.com/Calabonga/Authorization-Exercises/tree/IdentityServer4_v.3.1.3)) чтобы сохранить возможность видеть материлы, которые используются в видео. На данный момент nuget-пакеты `IdentityServer4` обновились до версии 4.х.х. Эти обновления присутствуют в ветке `master`.
 
 # Youtube video
