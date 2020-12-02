@@ -12,6 +12,24 @@ namespace Authorization.IdentityServer
         {
             new Client
             {
+                ClientId = "client_blazor_web_assembly",
+                RequireClientSecret = false,
+                RequireConsent = false,
+                RequirePkce = true,
+                AllowedGrantTypes =  GrantTypes.Code,
+                AllowedCorsOrigins = { "https://localhost:8001" },
+                PostLogoutRedirectUris = { "https://localhost:8001" },
+                RedirectUris = { "https://localhost:8001/authentication/login-callback" },
+                AllowedScopes =
+                {
+                    "blazor",
+                    "OrdersAPI",
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
+                }
+            },
+            new Client
+            {
                 ClientId = "client_id_js",
                 RequireClientSecret = false,
                 RequireConsent = false,
@@ -100,6 +118,7 @@ namespace Authorization.IdentityServer
         public static IEnumerable<ApiScope> GetApiScopes()
         {
             yield return new ApiScope("SwaggerAPI", "Swagger API");
+            yield return new ApiScope("blazor", "Blazor WebAssembly");
             yield return new ApiScope("OrdersAPI", "Orders API");
         }
     }
