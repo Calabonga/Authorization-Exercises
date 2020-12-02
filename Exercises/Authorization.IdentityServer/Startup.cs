@@ -1,8 +1,10 @@
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+
 using Authorization.IdentityServer.Data;
 using Authorization.IdentityServer.Infrastructure;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -29,9 +31,11 @@ namespace Authorization.IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(config =>
-                {
-                    config.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)));
-                })
+            {
+                // When using real SQL server
+                //config.UseSqlServer(Configuration.GetConnectionString(nameof(ApplicationDbContext)));
+                config.UseInMemoryDatabase("DEMO_ONLY");
+            })
                 .AddIdentity<IdentityUser, IdentityRole>(config =>
                 {
                     config.Password.RequireDigit = false;
